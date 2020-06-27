@@ -16,37 +16,23 @@ class ContestFragment : Fragment() {
     data class Question(
         val text: String,
         val answers: List<String>)
-
+var score = 0
     // The first answer is the correct one.  We randomize the answers before showing the text.
     // All questions must have four answers.  We'd want these to contain references to string
     // resources so we could internationalize. (or better yet, not define the questions in code...)
     private val questions: MutableList<Question> = mutableListOf(
         Question(text = "ما هو الأندرويد جيت باك؟",
-            answers = listOf("كل الإجابات صح", "خطأ", "خطأ", "خطأ")),
+            answers = listOf("خطأ", "خطأ", "كل الإجابات صح", "خطأ")),
         Question(text = "الكلاس الأساسية للاي أوت؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
+            answers = listOf("خطأ", "خطأ", "الصح", "خطأ")),
         Question(text = "سؤال عربي",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "النبي عربي؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "ده سؤال كله عربي؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "ده سؤال تاني كله عربي",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "عربي من فضلك؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "سؤال عربي يا بني هنا",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "عربي السؤال ده؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ")),
-        Question(text = "هل إنت مصري؟",
-            answers = listOf("الصح", "خطأ", "خطأ", "خطأ"))
+            answers = listOf("خطأ", "الصح", "خطأ", "خطأ"))
     )
 
     lateinit var currentQuestion: Question
     lateinit var answers: MutableList<String>
     private var questionIndex = 0
-    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+    private val numQuestions = 3//Math.min((questions.size + 1) / 2, 3)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -56,7 +42,8 @@ class ContestFragment : Fragment() {
             inflater, R.layout.fragment_contest, container, false)
 
         // Shuffles the questions and sets the question index to the first question.
-        randomizeQuestions()
+        //randomizeQuestions()
+        setQuestion()
 
         // Bind this fragment class to the layout
         binding.contest = this
@@ -73,6 +60,7 @@ class ContestFragment : Fragment() {
                     R.id.thirdAnswerRadioButton -> answerIndex = 2
                     R.id.fourthAnswerRadioButton -> answerIndex = 3
                 }
+
                 // The first answer in the original question is always the correct one, so if our
                 // answer matches, we have the correct answer.
                 if (answers[answerIndex] == currentQuestion.answers[0]) {
@@ -82,23 +70,19 @@ class ContestFragment : Fragment() {
                         currentQuestion = questions[questionIndex]
                         setQuestion()
                         binding.invalidateAll()
-                    } else {
-                        //view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
                     }
-                } else {
-                    //view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
                 }
             }
         }
         return binding.root
     }
 
-    // randomize the questions and set the first question
-    private fun randomizeQuestions() {
-        questions.shuffle()
-        questionIndex = 0
-        setQuestion()
-    }
+//    // randomize the questions and set the first question
+//    private fun randomizeQuestions() {
+//        //questions.shuffle()
+//        questionIndex = 0
+//        setQuestion()
+//    }
 
     // Sets the question and randomizes the answers.  This only changes the data, not the UI.
     // Calling invalidateAll on the FragmentGameBinding updates the data.
@@ -107,7 +91,7 @@ class ContestFragment : Fragment() {
         // randomize the answers into a copy of the array
         answers = currentQuestion.answers.toMutableList()
         // and shuffle them
-        answers.shuffle()
+       // answers.shuffle()
         //(activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)
     }
 }
