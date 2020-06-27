@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.ahmadtalat.allaelossool.StartFragment"
+        android:label="StartFragment" >
+        <action
+            android:id="@+id/action_startFragment_to_contestFragment"
+            app:destination="@id/contestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contestFragment"
+        android:name="com.ahmadtalat.allaelossool.ContestFragment"
+        android:label="ContestFragment" />
+</navigation>

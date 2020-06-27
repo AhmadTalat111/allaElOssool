@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">allaElOssool</string>
     <string name="label">على الأصول</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit_button">تسليم الإجابات</string>
 </resources>
